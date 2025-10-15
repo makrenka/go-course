@@ -16,7 +16,7 @@ func main() {
 		isEven = false
 	}
 
-	fmt.Println("Исходное число: ", random)
+	fmt.Println("Исходное число: ", fmt.Sprintf("%f", random))
 	fmt.Println("Исходное число, увеличенное на 10%: ", strconv.FormatFloat(random*1.1, 'f', 5, 64))
 	fmt.Println("Исходное число является четным: ", isEven)
 	fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))

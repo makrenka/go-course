@@ -2,22 +2,21 @@ package main
 
 import (
 	"fmt"
-	"math"
-	"math/rand/v2"
-	"strconv"
 )
 
 func main() {
-	random := math.Floor((rand.Float64()*100)*10) / 10
-	var isEven bool
-	if math.Mod(random, 2) == 0 {
-		isEven = true
-	} else {
-		isEven = false
-	}
+	hour := 25
 
-	fmt.Println("Исходное число: ", fmt.Sprintf("%f", random))
-	fmt.Println("Исходное число, увеличенное на 10%: ", strconv.FormatFloat(random*1.1, 'f', 5, 64))
-	fmt.Println("Исходное число является четным: ", isEven)
-	fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))
+	switch {
+	case hour > 6 && hour <= 12:
+		fmt.Printf("Сейчас %dч. - утро", hour)
+	case hour > 12 && hour <= 18:
+		fmt.Printf("Сейчас %dч. - день", hour)
+	case hour > 18 && hour <= 23:
+		fmt.Printf("Сейчас %dч. - вечер", hour)
+	case hour > 23 && hour <= 24 && hour >= 0 && hour <= 6:
+		fmt.Printf("Сейчас %dч. - ночь", hour)
+	default:
+		fmt.Printf("Неверно задано время")
+	}
 }

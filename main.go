@@ -1,8 +1,10 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"math/rand/v2"
+	// "strings"
+	// "math/rand/v2"
 )
 
 func main() {
@@ -19,27 +21,64 @@ func main() {
 	// fmt.Println("Исходное число является четным: ", isEven)
 	// fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))
 
-	result := generateCompliment("Serg")
+	result, err := calculate(4, 0, "divide")
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println(result)
 }
 
-func generateCompliment(name string) string {
-	randomNum := rand.IntN(3)
-	var message string
-
-	switch {
-	case randomNum == 0:
-		message = "Ты великолепен, " + name + "!"
-	case randomNum == 1:
-		message = "У тебя потрясающая улыбка, " + name + "!"
-	case randomNum == 2:
-		message = "Ты вдохновляешь, " + name + "!"
-	default:
-		fmt.Println("Что-то пошло не так")
+func calculate(n1 float64, n2 float64, action string) (float64, error) {
+	if action == "add" {
+		return n1 + n2, nil
+	}
+	if action == "subtract" {
+		return n1 - n2, nil
+	}
+	if action == "multiply" {
+		return n1 * n2, nil
+	}
+	if n2 == 0 {
+		return 0, errors.New("division by zero")
+	}
+	if action == "divide" {
+		return n1 / n2, nil
 	}
 
-	return message
+	return 0, errors.New("unknown operation")
 }
+
+// func UserProfileToString(name string, age int) (string, error) {
+// 	message := fmt.Sprintf("Имя человека: %s, возраст: %d.", strings.TrimSpace(name), age)
+// 	if name == "" {
+// 		return "", errors.New("empty name")
+// 	}
+// 	if age < 0 {
+// 		return "", errors.New("negative age")
+// 	}
+// 	if strings.TrimSpace(name) == "" {
+// 		return "", errors.New("name cannot contain only spaces")
+// 	}
+// 	return message, nil
+// }
+
+// func generateCompliment(name string) string {
+// 	randomNum := rand.IntN(3)
+// 	var message string
+
+// 	switch {
+// 	case randomNum == 0:
+// 		message = "Ты великолепен, " + name + "!"
+// 	case randomNum == 1:
+// 		message = "У тебя потрясающая улыбка, " + name + "!"
+// 	case randomNum == 2:
+// 		message = "Ты вдохновляешь, " + name + "!"
+// 	default:
+// 		fmt.Println("Что-то пошло не так")
+// 	}
+
+// 	return message
+// }
 
 // func printNumberInfo(num int) {
 // 	if math.Abs(float64(num)) != float64(num) {

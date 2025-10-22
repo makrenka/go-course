@@ -1,11 +1,9 @@
 package main
 
-import (
-	// "errors"
-	"fmt"
-	// "strings"
-	// "math/rand/v2"
-)
+// "errors"
+
+// "strings"
+// "math/rand/v2"
 
 func main() {
 	// random := math.Floor((rand.Float64()*100)*10) / 10
@@ -21,19 +19,18 @@ func main() {
 	// fmt.Println("Исходное число является четным: ", isEven)
 	// fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))
 
-	add, err := adder(10)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(add(5))
+	add := adder(10)
+
+	add(10)
 }
 
-func adder(n int) (func(x int), error) {
+func adder(n int) func(x int) int {
 	res := n
-	fmt.Println(res)
-	return func(x int) {
-		res = n+x
-	}, nil
+
+	return func(x int) int {
+		res += x
+		return res
+	}
 }
 
 // func calculate(n1 float64, n2 float64, action string) (float64, error) {

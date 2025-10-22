@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	// "errors"
 	"fmt"
 	// "strings"
 	// "math/rand/v2"
@@ -21,32 +21,40 @@ func main() {
 	// fmt.Println("Исходное число является четным: ", isEven)
 	// fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))
 
-	result, err := calculate(4, 0, "divide")
+	add, err := adder(10)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(result)
+	fmt.Println(add(5))
 }
 
-func calculate(n1 float64, n2 float64, action string) (float64, error) {
-	if action == "add" {
-		return n1 + n2, nil
-	}
-	if action == "subtract" {
-		return n1 - n2, nil
-	}
-	if action == "multiply" {
-		return n1 * n2, nil
-	}
-	if n2 == 0 {
-		return 0, errors.New("division by zero")
-	}
-	if action == "divide" {
-		return n1 / n2, nil
-	}
-
-	return 0, errors.New("unknown operation")
+func adder(n int) (func(x int), error) {
+	res := n
+	fmt.Println(res)
+	return func(x int) {
+		res = n+x
+	}, nil
 }
+
+// func calculate(n1 float64, n2 float64, action string) (float64, error) {
+// 	if action == "add" {
+// 		return n1 + n2, nil
+// 	}
+// 	if action == "subtract" {
+// 		return n1 - n2, nil
+// 	}
+// 	if action == "multiply" {
+// 		return n1 * n2, nil
+// 	}
+// 	if n2 == 0 {
+// 		return 0, errors.New("division by zero")
+// 	}
+// 	if action == "divide" {
+// 		return n1 / n2, nil
+// 	}
+
+// 	return 0, errors.New("unknown operation")
+// }
 
 // func UserProfileToString(name string, age int) (string, error) {
 // 	message := fmt.Sprintf("Имя человека: %s, возраст: %d.", strings.TrimSpace(name), age)

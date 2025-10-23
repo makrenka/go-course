@@ -2,39 +2,48 @@ package main
 
 import (
 	// "errors"
+
 	"fmt"
+	"strings"
+
+	// "math"
+	"strconv"
 	// "strings"
 	// "math/rand/v2"
 )
 
 func main() {
-	// random := math.Floor((rand.Float64()*100)*10) / 10
-	// var isEven bool
-	// if math.Mod(random, 2) == 0 {
-	// 	isEven = true
-	// } else {
-	// 	isEven = false
-	// }
+	fmt.Println(sumOfDigits(-456))
+}
 
-	// fmt.Println("Исходное число: ", random)
-	// fmt.Println("Исходное число, увеличенное на 10%: ", strconv.FormatFloat(random*1.1, 'f', 5, 64))
-	// fmt.Println("Исходное число является четным: ", isEven)
-	// fmt.Println("Предпоследняя цифра целой части исходного числа: ", math.Floor(random/10))
-
-	add, err := adder(10)
-	if err != nil {
-		fmt.Println(err)
+func sumOfDigits(n int) int {
+	if n < 0 {
+		n = -n
 	}
-	fmt.Println(add(5))
+
+	arr := strings.Split(strconv.Itoa(n), "")
+
+	if len(arr) == 1 {
+		str := strings.Join(arr, "")
+		num, _ := strconv.Atoi(str)
+		return num
+	}
+
+	num, _ := strconv.Atoi(arr[0])
+	arr = arr[1:]
+	newStr := strings.Join(arr, "")
+	newNum, _ := strconv.Atoi(newStr)
+
+	return num + sumOfDigits(newNum)
 }
 
-func adder(n int) (func(x int), error) {
-	res := n
-	fmt.Println(res)
-	return func(x int) {
-		res = n+x
-	}, nil
-}
+// func adder(n int) (func(x int), error) {
+// 	res := n
+// 	fmt.Println(res)
+// 	return func(x int) {
+// 		res = n+x
+// 	}, nil
+// }
 
 // func calculate(n1 float64, n2 float64, action string) (float64, error) {
 // 	if action == "add" {

@@ -1,41 +1,74 @@
 package main
 
 import (
-	// "errors"
-
 	"fmt"
-	"strings"
-
-	// "math"
-	"strconv"
-	// "strings"
-	// "math/rand/v2"
 )
 
+// "fmt"
+
 func main() {
-	fmt.Println(sumOfDigits(-456))
+	movePirate(false)
+	movePirate(true)
+	movePirate(false)
+	movePirate(false)
+	movePirate(true)
+	movePirate(false)
+	movePirate(false)
+	movePirate(false)
+	movePirate(false)
+	movePirate(false)
 }
 
-func sumOfDigits(n int) int {
-	if n < 0 {
-		n = -n
+var trapsNumber int
+var stovesNumber int
+var isDead bool
+
+func movePirate(isTrap bool) {
+	if isDead {
+		return
 	}
 
-	arr := strings.Split(strconv.Itoa(n), "")
+	stovesNumber += 1
+	fmt.Printf("Пират переместился на плиту %d\n", stovesNumber)
 
-	if len(arr) == 1 {
-		str := strings.Join(arr, "")
-		num, _ := strconv.Atoi(str)
-		return num
+	if isTrap {
+		trapsNumber += 1
 	}
 
-	num, _ := strconv.Atoi(arr[0])
-	arr = arr[1:]
-	newStr := strings.Join(arr, "")
-	newNum, _ := strconv.Atoi(newStr)
+	if isTrap && trapsNumber <= 2 {
+		fmt.Println("Пират ранен")
+	} else if isTrap && trapsNumber > 2 {
+		fmt.Println("Пират убит")
+		isDead = true
+		return
+	}
 
-	return num + sumOfDigits(newNum)
+	if stovesNumber == 10 {
+		fmt.Println("Пират преодолел все ловушки")
+		return
+	}
 }
+
+// func sumOfDigits(n int) int {
+// 	if n < 0 {
+// 		n = -n
+// 	}
+
+// 	arr := strings.Split(strconv.Itoa(n), "")
+
+// 	if len(arr) == 1 {
+// 		str := strings.Join(arr, "")
+// 		num, _ := strconv.Atoi(str)
+// 		return num
+// 	}
+
+// 	num, _ := strconv.Atoi(arr[0])
+// 	arr = arr[1:]
+// 	newStr := strings.Join(arr, "")
+// 	newNum, _ := strconv.Atoi(newStr)
+
+// 	return num + sumOfDigits(newNum)
+// }
 
 // func adder(n int) (func(x int), error) {
 // 	res := n

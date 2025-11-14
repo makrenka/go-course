@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	lessons.PrintDiamond(4)
+	lessons.GetUserNmuber()
 }

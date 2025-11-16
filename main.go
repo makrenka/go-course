@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	arr := [5]int{3, 8, 1, 8, 1}
-	lessons.GenerateSecretCode(arr)
+	arr := []int{2, 0, -3}
+	lessons.PrintMagic(arr)
 }

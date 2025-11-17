@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	arr := []int{2, 0, -3}
-	lessons.PrintMagic(arr)
+	var arr []int
+	lessons.Max(arr)
 }

@@ -5,36 +5,55 @@ import (
 	"fmt"
 )
 
+// маё
 func IntersectSlices(slice1, slice2 []int) ([]int, error) {
 	if slice1 == nil || slice2 == nil {
 		err := errors.New("slices cannot be nil")
 		return nil, err
 	}
 
-	var res1 []int
-	for _, v1 := range slice1 {
-		for j, v2 := range slice2 {
-			if slice2[j] != len(slice2)-1 && slice2[j] == slice2[j+1] {
-				continue
-			}
-			if v2 == v1 {
-				res1 = append(res1, v2)
+	var result []int
+
+	copySlice1 := make([]int, len(slice1))
+	copy(copySlice1, slice1)
+	copySlice2 := make([]int, len(slice2))
+	copy(copySlice2, slice2)
+
+	for i := 0; i < len(copySlice1); i++ {
+		for j := 0; j < len(copySlice2); j++ {
+			if copySlice2[j] == copySlice1[i] {
+				result = append(result, copySlice2[j])
+				if copySlice1[i] != len(copySlice1)-1 || copySlice2[j] != len(copySlice2)-1 {
+					copySlice2 = copySlice2[j+1:]
+				}
+				break
 			}
 		}
 	}
 
-	var res2 []int
-	for _, v1 := range slice2 {
-		for j, v2 := range slice1 {
-			if slice1[j] != len(slice1)-1 && slice1[j] == slice1[j+1] {
-				continue
-			}
-			if v2 == v1 {
-				res2 = append(res2, v2)
-			}
+	fmt.Print(result)
+	return result, nil
+}
+
+// харошае рашэньне!!!
+func intersectSlices(nums1, nums2 []int) ([]int, error) {
+	intersectNums := []int{}
+	if nums1 == nil || nums2 == nil {
+		return intersectNums, errors.New("slices cannot be nil")
+	}
+	idx1 := 0
+	idx2 := 0
+	for idx1 < len(nums1) && idx2 < len(nums2) {
+		switch {
+		case nums1[idx1] < nums2[idx2]:
+			idx1++
+		case nums1[idx1] > nums2[idx2]:
+			idx2++
+		default:
+			intersectNums = append(intersectNums, nums1[idx1])
+			idx1++
+			idx2++
 		}
 	}
-
-	fmt.Print(res1, res2)
-	return res2, nil
+	return intersectNums, nil
 }

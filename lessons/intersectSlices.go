@@ -36,24 +36,24 @@ func IntersectSlices(slice1, slice2 []int) ([]int, error) {
 }
 
 // харошае рашэньне!!!
-func intersectSlices(nums1, nums2 []int) ([]int, error) {
-	intersectNums := []int{}
-	if nums1 == nil || nums2 == nil {
-		return intersectNums, errors.New("slices cannot be nil")
-	}
-	idx1 := 0
-	idx2 := 0
-	for idx1 < len(nums1) && idx2 < len(nums2) {
-		switch {
-		case nums1[idx1] < nums2[idx2]:
-			idx1++
-		case nums1[idx1] > nums2[idx2]:
-			idx2++
-		default:
-			intersectNums = append(intersectNums, nums1[idx1])
-			idx1++
-			idx2++
-		}
-	}
-	return intersectNums, nil
-}
+// func intersectSlices(nums1, nums2 []int) ([]int, error) {
+// 	intersectNums := []int{}
+// 	if nums1 == nil || nums2 == nil {
+// 		return intersectNums, errors.New("slices cannot be nil")
+// 	}
+// 	idx1 := 0
+// 	idx2 := 0
+// 	for idx1 < len(nums1) && idx2 < len(nums2) {
+// 		switch {
+// 		case nums1[idx1] < nums2[idx2]:
+// 			idx1++
+// 		case nums1[idx1] > nums2[idx2]:
+// 			idx2++
+// 		default:
+// 			intersectNums = append(intersectNums, nums1[idx1])
+// 			idx1++
+// 			idx2++
+// 		}
+// 	}
+// 	return intersectNums, nil
+// }

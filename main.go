@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"go-course/lessons"
 )
 
@@ -13,17 +12,4 @@ func main() {
 		{4, 6, 8, 2},
 	}
 	lessons.MagicSort(slice1)
-}
-
-func MagicSort(s [][]int) [][]int {
-	for _, slice := range s {
-		sum := 0
-		for _, v := range slice {
-			sum += v
-		}
-		slice = append(slice, sum)
-	}
-
-	fmt.Println(s)
-	return s
 }

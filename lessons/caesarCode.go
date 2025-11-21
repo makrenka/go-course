@@ -45,3 +45,16 @@ func CaesarCode(text string, shift int32, encode bool) string {
 
 	return string(res)
 }
+
+// як варыянт, але не зусім правільны
+// func CaesarCode(text string, shift int32, encode bool) string {
+// 	result := make([]rune, 0, utf8.RuneCountInString(text))
+// 	for _, v := range text {
+// 		if encode {
+// 			result = append(result, v+shift)
+// 		} else {
+// 			result = append(result, v-shift)
+// 		}
+// 	}
+// 	return string(result)
+// }

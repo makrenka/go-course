@@ -5,6 +5,12 @@ import (
 )
 
 func main() {
-	// res, _ := lessons.CreateSlice(6)
-	lessons.CountMaxFrequency([]int{1, 2, 2, 3, 3})
+	m := map[string]int{
+		"banana":     2,
+		"apple":      1,
+		"grapefruit": 3,
+		"cherry":     1,
+	}
+	invertedMap := lessons.InvertMap(m)
+	lessons.PrintMap(invertedMap)
 }

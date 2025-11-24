@@ -6,5 +6,5 @@ import (
 
 func main() {
 	// res, _ := lessons.CreateSlice(6)
-	lessons.SortByParity([]int{-7, -5, 6, -10, 2, -9})
+	lessons.CountMaxFrequency([]int{1, 2, 2, 3, 3})
 }

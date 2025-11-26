@@ -1,34 +1,56 @@
 package main
 
 import (
-	"go-course/lessons"
+	"fmt"
+	"go-course/practices"
 )
 
 func main() {
-	m1 := map[string]int{
-		"a": 1,
-		"b": 2,
-		"c": 3,
+	m := map[string]map[string]float64{
+		"Экшен": {
+			"Фильм1": 8.52,
+			"Фильм2": 6.0,
+		},
+		"Драма": {
+			"Фильм3": 7.524,
+			"Фильм4": 7.527,
+			"Фильм5": 5.54,
+		},
 	}
-	m2 := map[string]int{
-		"b": 3,
-		"c": 4,
-		"d": 5,
-	}
-	lessons.MergeMaps(m1, m2)
+	practices.PrintRecommendations(m)
 }
 
-func MergeMaps(m1, m2 map[string]int) map[string]int {
-	res := make(map[string]int)
-	for key1, v1 := range m1 {
-		res[key1] = v1
-		for key2, v2 := range m2 {
-			if key2 == key1 {
-				res[key2] = v2 + v1
-			} else {
-				res[key2] = v2
+func PrintRecommendations(m map[string]map[string]float64) {
+	// genres := make([]string, 0)
+	// movies := make([]string, 0)
+	moviesMap := make(map[string]float64)
+	genresMap := make(map[string]string)
+
+	for key, val := range m {
+		for k, v := range val {
+			if v >= 7 {
+				// genres = append(genres, key)
+				// movies = append(movies, k)
+				moviesMap[k] = v
+				genresMap[key] = k
 			}
 		}
 	}
-	return res
+
+	// slices.Sort(genres)
+	// genres = slices.Compact(genres)
+	// slices.SortFunc(movies, func(a, b string) int {
+	// 	if moviesMap[a] < moviesMap[b] {
+	// 		return -1
+	// 	}
+	// 	if moviesMap[a] > moviesMap[b] {
+	// 		return 1
+	// 	}
+	// 	return 0
+	// })
+
+	// for _, v := range genres {
+	// 	fmt.Printf("%s: %s", v, strings.Join(movies, ", "))
+	// }
+	fmt.Println(genresMap)
 }

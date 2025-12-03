@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-course/practices"
+	"go-course/lessons"
 )
 
 func main() {
-	practices.PrintResult()
+	lessons.GeneratePassword(4, 1)
 }

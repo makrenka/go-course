@@ -3,7 +3,9 @@ package lessons
 import (
 	"crypto/rand"
 	"errors"
+	"math"
 	"math/big"
+	"strings"
 )
 
 const (
@@ -32,25 +34,29 @@ func GeneratePassword(length, count int) ([]string, error) {
 	if count < MinPasswordsCount {
 		return nil, ErrTooLowPasswordsCount
 	}
+	if count > MaxPasswordsCount {
+		return nil, ErrTooBigPasswordsCount
+	}
 
-	generatedPasswords := make([]string, length)
+	var generatedPasswords []string
+	itarationsCount := float64(length) / 4
 
-	for i := 1; i <= length; i++ {
-		upperInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(upperChars))))
-		lowerInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(lowerChars))))
-		digitInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(digitChars))))
-		specialInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(specialChars))))
-
-		password := string(upperChars[int(upperInd.Int64())]) +
-			string(lowerChars[int(lowerInd.Int64())]) +
-			string(digitChars[int(digitInd.Int64())]) +
-			string(specialChars[int(specialInd.Int64())])
-
+	for j := 0; j < count; j++ {
+		var chars []string
+		var password string
+		for i := 0; i < int(math.Ceil(itarationsCount)); i++ {
+			upperInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(upperChars))))
+			lowerInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(lowerChars))))
+			digitInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(digitChars))))
+			specialInd, _ := rand.Int(rand.Reader, big.NewInt(int64(len(specialChars))))
+			chars = append(chars, string(upperChars[int(upperInd.Int64())]), string(lowerChars[int(lowerInd.Int64())]), string(digitChars[int(digitInd.Int64())]), string(specialChars[int(specialInd.Int64())]))
+		}
+		password = strings.Join(chars[:length], "")
 		generatedPasswords = append(generatedPasswords, password)
 	}
 
 	m := make(map[string]struct{}, len(generatedPasswords))
-	res := make([]string, length)
+	var res []string
 	for i := 0; i < len(generatedPasswords); i++ {
 		val := generatedPasswords[i]
 		if _, ok := m[val]; ok {

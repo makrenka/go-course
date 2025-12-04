@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	lessons.GeneratePassword(4, 1)
+	lessons.GeneratePassword(5, 2)
 }

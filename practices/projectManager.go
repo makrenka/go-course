@@ -15,7 +15,7 @@ type Task struct {
 	ID          string
 	Title       string
 	Description string
-	Status      bool
+	Status      string
 }
 
 func NewProject(id string, name string) (*Project, error) {
@@ -41,7 +41,7 @@ func NewTask(id string, title, description string) (*Task, error) {
 		ID:          id,
 		Title:       title,
 		Description: description,
-		Status:      true,
+		Status:      "active",
 	}, nil
 }
 
@@ -59,10 +59,9 @@ func (p *Project) AddTask(t Task) error {
 
 func (p *Project) UpdateTask(task Task) error {
 	var isFound bool
-	for _, t := range p.Tasks {
+	for i, t := range p.Tasks {
 		if t.ID == task.ID {
-			t.Title = task.Title
-			t.Description = task.Description
+			p.Tasks[i] = task
 			isFound = true
 		}
 	}
@@ -74,18 +73,18 @@ func (p *Project) UpdateTask(task Task) error {
 	return nil
 }
 
-func (t *Task) Close(status bool) error {
-	if !t.Status {
+func (t *Task) Close() error {
+	if t.Status == "not active" {
 		return errors.New("the task is not active")
 	}
 
-	t.Status = status
+	t.Status = "not active"
 
 	return nil
 }
 
 func (t *Task) UpdateDescription(description string) error {
-	if !t.Status {
+	if t.Status == "not active" {
 		return errors.New("the task is not active")
 	}
 	if description == "" {
@@ -97,7 +96,7 @@ func (t *Task) UpdateDescription(description string) error {
 	return nil
 }
 
-func (p Project) FilterTasksByStatus(status bool) []Task {
+func (p Project) FilterTasksByStatus(status string) []Task {
 	var res []Task
 	for _, task := range p.Tasks {
 		if status == task.Status {

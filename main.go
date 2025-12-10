@@ -49,23 +49,23 @@ func main() {
 		log.Fatalf("update task error: %v\n", err)
 	}
 
-	// // Закрываем задачу 2
-	// if err := tk2.Close(); err != nil {
-	// 	log.Fatalf("task close error: %v\n", err)
-	// }
-	// // Обновляем задачу в проекте
-	// if err := pr.UpdateTask(*tk2); err != nil {
-	// 	log.Fatalf("update task error: %v\n", err)
-	// }
+	// Закрываем задачу 2
+	if err := tk2.Close(); err != nil {
+		log.Fatalf("task close error: %v\n", err)
+	}
+	// Обновляем задачу в проекте
+	if err := pr.UpdateTask(*tk2); err != nil {
+		log.Fatalf("update task error: %v\n", err)
+	}
 
 	// Просматриваем данные проекта
 	pr.PrintInfo()
 
 	fmt.Println("---")
 
-	// // Отображаем только закрытые задачи
-	// fmt.Println("Закрытые задачи проекта:")
-	// for _, task := range pr.FilterTasksByStatus(project.StatusClosed) {
-	// 	fmt.Printf("Задача: %s, Описание: %s, Статус: %s\n", task.Title, task.Description, task.Status)
-	// }
+	// Отображаем только закрытые задачи
+	fmt.Println("Закрытые задачи проекта:")
+	for _, task := range pr.FilterTasksByStatus("not active") {
+		fmt.Printf("Задача: %s, Описание: %s, Статус: %s\n", task.Title, task.Description, task.Status)
+	}
 }

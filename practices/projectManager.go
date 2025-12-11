@@ -18,6 +18,11 @@ type Task struct {
 	Status      string
 }
 
+const (
+	StatusActive = "ACTIVE"
+	StatusClosed = "CLOSED"
+)
+
 func NewProject(id string, name string) (*Project, error) {
 	if name == "" {
 		return nil, errors.New("empty name")
@@ -41,7 +46,7 @@ func NewTask(id string, title, description string) (*Task, error) {
 		ID:          id,
 		Title:       title,
 		Description: description,
-		Status:      "active",
+		Status:      StatusActive,
 	}, nil
 }
 
@@ -74,17 +79,17 @@ func (p *Project) UpdateTask(task Task) error {
 }
 
 func (t *Task) Close() error {
-	if t.Status == "not active" {
+	if t.Status == StatusClosed {
 		return errors.New("the task is not active")
 	}
 
-	t.Status = "not active"
+	t.Status = StatusClosed
 
 	return nil
 }
 
 func (t *Task) UpdateDescription(description string) error {
-	if t.Status == "not active" {
+	if t.Status == StatusClosed {
 		return errors.New("the task is not active")
 	}
 	if description == "" {

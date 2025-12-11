@@ -3,69 +3,29 @@ package main
 import (
 	"fmt"
 	"go-course/practices"
-	"log"
-
-	"github.com/google/uuid"
 )
 
 func main() {
-	// Создаем проект
-	pr, err := practices.NewProject(uuid.New().String(), "Проект 1")
-	if err != nil {
-		log.Fatalf("create project error: %v\n", err)
-	}
+	village := practices.Village{}
 
-	// Создаем задачу 1 для проекта 1
-	tk1, err := practices.NewTask(uuid.New().String(), "Задача 1", "Описание важной задачи №1")
-	if err != nil {
-		log.Fatalf("create task error: %v\n", err)
-	}
-	// Добавляем задачу в проект 1
-	if err := pr.AddTask(*tk1); err != nil {
-		log.Fatalf("add task to project error: %v\n", err)
-	}
+	// Создаем жителей деревни
+	resident1 := &practices.Resident{Name: "Алиса", Age: 30, Married: false, Alive: true, Events: []string{}}
+	resident2 := &practices.Resident{Name: "Борис", Age: 40, Married: true, Alive: true, Events: []string{}}
 
-	// Создаем задачу 2 для проекта 1
-	tk2, err := practices.NewTask(uuid.New().String(), "Задача 2", "Описание важной задачи №2")
-	if err != nil {
-		log.Fatalf("create task error: %v\n", err)
-	}
-	// Добавляем задачу в проект 1
-	if err := pr.AddTask(*tk2); err != nil {
-		log.Fatalf("add task to project error: %v\n", err)
-	}
+	// Создаем животных
+	animal1 := &practices.Animal{Name: "Бобик", Age: 5, Type: "собака", Alive: true, Events: []string{}}
+	animal2 := &practices.Animal{Name: "Мурка", Age: 3, Type: "кошка", Alive: true, Events: []string{}}
 
-	// // Просматриваем данные проекта
-	// pr.PrintInfo()
+	// Добавляем элементы в деревню
+	village.AddElement(resident1)
+	village.AddElement(resident2)
+	village.AddElement(animal1)
+	village.AddElement(animal2)
 
-	// fmt.Println("---")
-
-	// Обновляем описание задачи 1
-	if err := tk1.UpdateDescription("Новое описание важной задачи №2"); err != nil {
-		log.Fatalf("task update description error: %v\n", err)
-	}
-	// Обновляем задачу в проекте
-	if err := pr.UpdateTask(*tk1); err != nil {
-		log.Fatalf("update task error: %v\n", err)
-	}
-
-	// Закрываем задачу 2
-	if err := tk2.Close(); err != nil {
-		log.Fatalf("task close error: %v\n", err)
-	}
-	// Обновляем задачу в проекте
-	if err := pr.UpdateTask(*tk2); err != nil {
-		log.Fatalf("update task error: %v\n", err)
-	}
-
-	// Просматриваем данные проекта
-	pr.PrintInfo()
-
-	fmt.Println("---")
-
-	// Отображаем только закрытые задачи
-	fmt.Println("Закрытые задачи проекта:")
-	for _, task := range pr.FilterTasksByStatus("not active") {
-		fmt.Printf("Задача: %s, Описание: %s, Статус: %s\n", task.Title, task.Description, task.Status)
+	// Симуляция обновления деревни на несколько лет
+	for i := 0; i < 5; i++ {
+		fmt.Printf("Год %d:\n", i+1)
+		village.UpdateAll()
+		fmt.Println(village.ShowAllInfo())
 	}
 }

@@ -3,7 +3,6 @@ package lessons
 import (
 	"errors"
 	"fmt"
-	"log"
 )
 
 // Данные
@@ -38,15 +37,15 @@ func (w Service) PrintChat(id int) {
 	var getChatError *DatabaseError
 	chat, err := w.db.GetChatByIDWithMessages(id)
 	if err != nil {
-		if errors.As(err, &getChatError) {
-			if getChatError.Code == 24 {
-				log.Fatalf("Ошибка запроса: %v", err)
-			} else {
-				log.Fatalf("Инфраструктурная ошибка: %v", err)
-			}
-		} else {
-			log.Fatalf("Неизвестная ошибка: %v", err)
+		switch {
+		case errors.As(err, &getChatError) && getChatError.Code == 24:
+			fmt.Printf("Ошибка запроса: %s", getChatError)
+		case errors.As(err, &getChatError):
+			fmt.Printf("Инфраструктурная ошибка: %s", getChatError)
+		default:
+			fmt.Printf("Неизвестная ошибка: %s", err)
 		}
+		return
 	}
 
 	for _, v := range chat.Messages {

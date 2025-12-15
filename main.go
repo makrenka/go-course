@@ -16,11 +16,9 @@ func main() {
 		case errors.Is(err, practices.ErrUnsupportedPaymentMethod):
 			fmt.Println("Ошибка: неподдерживаемый метод платежа.")
 		case errors.As(err, &insufficientFundsErr):
-			fmt.Printf("Ошибка: недостаточно средств. requested amount: %.2f, maximum allowed amount: %.2f\n",
-				insufficientFundsErr.RequestedAmount,
-				insufficientFundsErr.MaxAmount)
+			fmt.Printf("Ошибка: недостаточно средств. %v\n", err)
 		default:
-			fmt.Printf("Неизвестная ошибка: %s.", err)
+			fmt.Printf("Неизвестная ошибка: %s.\n", err)
 		}
 
 		os.Exit(1)
